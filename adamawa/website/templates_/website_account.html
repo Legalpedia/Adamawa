@@ -1,0 +1,41 @@
+{% load static %}
+{% include "website_header.html" %}
+    <body class="c-layout-header-fixed c-layout-header-mobile-fixed">
+    {% include "website_nav.html" %}
+
+        <!-- BEGIN: PAGE CONTAINER -->
+        <div class="c-layout-page">
+
+
+ <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+                <div class="container">
+                    <div class="c-page-title c-pull-left">
+                        <h3 class="c-font-uppercase c-font-sbold">Account Login/Register</h3>
+
+                    </div>
+                    <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                        <li>
+                            <a href="shop-customer-account.html">Customer Login/Register</a>
+                        </li>
+                        <li>/</li>
+                        <li class="c-state_active">{{ data.sitename }}</li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+
+
+    {% include "home_login_register.html" %}
+
+        </div>
+        <!-- END: PAGE CONTAINER -->
+
+
+    {% include "website_footer.html" %}
+</body>
+
+
+</html>

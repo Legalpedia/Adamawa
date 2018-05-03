@@ -1,0 +1,106 @@
+{%load static %}
+  <!-- FOOTER -->
+       <style>
+           <!--
+           .ft-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
+           -->
+       </style>
+
+
+      <!-- COPY RIGHT -->
+      <div class="ft-bottom copyRight clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-7 col-xs-12">
+              <p>&copy; 2017 {{ data.sitename }}.</p>
+            </div>
+            <div class="col-sm-5 col-xs-12">
+              <ul class="list-inline">
+                <li><img src="{% static "img/home/footer/card1.png" %}"></li>
+                <li><img src="{% static "img/home/footer/card2.png" %}"></li>
+                <li><img src="{% static "img/home/footer/card3.png" %}"></li>
+                <li><img src="{% static "img/home/footer/card4.png" %}"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   {% include "website_login_modal.html" %}
+
+    {% include "website_signup_modal.html" %}
+{% include "website_product_quick_view.html" %}
+
+
+   {% include "website_scripts.html" %}
+
+
+
+<script>
+function cartadd(id){
+url="/cart/add/";
+data={"pid":id}
+ $.ajax({
+            type: "GET",
+            url: url,
+            dataType:"json",
+            data: data,
+            success: function(result,status,xhr) {
+                count=result.cart.count
+                total=result.cart.total
+                cartfull=""
+                cartcount="<li><span class='c-count'>"+count+"</span> item(s) in your cart</li>";
+                cartfull = cartfull + cartcount;
+                for(i=0;i<=result.cart.data.length-1;i++){
+                cartobj=result.cart.data[i];
+                cartfull = cartfull +"<li id='cart_"+cartobj.id+"'><a href='/cart'><div class='media'><img class='media-left media-object' width='50px' height='50px' src='static/img/book.png' alt='cart-Image'><div class='media-body'><p class='media-heading' style='width:100px;word-wrap: break-word;'>"+cartobj.name+" <br><span>1 X &#x20a6;"+cartobj.price+"</span></p></div></div></a></li>";
+                }
+                $(".cart-menu" ).html(cartfull);
+
+                console.log(result.cart.data)
+                console.log(total)
+                console.log(count)
+                $(".c-count" ).text(count)
+                $(".c-total" ).text(total)
+                $.growl.notice({ message: "Added document to cart" });
+            },
+            error:function(xhr,status,error){
+                console.log(error);
+            }
+        });
+
+}
+
+function cartremove(id){
+url="/cart/remove/";
+data={"pid":id}
+ $.ajax({
+            type: "GET",
+            url: url,
+            dataType:"json",
+            data: data,
+            success: function(result,status,xhr) {
+                count=result.cart.count
+                total=result.cart.total
+                $(".c-count" ).text(count)
+                $(".c-total" ).text(total)
+                jQuery("#cart_"+id).remove();
+                $.growl.notice({ message: "Removed document from cart" });
+                location.href="/cart";
+            },
+            error:function(xhr,status,error){
+                console.log(error);
+            }
+        });
+
+}
+
+</script>

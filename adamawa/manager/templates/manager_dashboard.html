@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>{{ data.sitename }}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+
+        <!-- CSS INCLUDE -->
+        <link rel="stylesheet" type="text/css" id="theme" href="../static/css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->
+    </head>
+    <body>
+        <!-- START PAGE CONTAINER -->
+        <div class="page-container">
+
+
+
+{% include "manager_sidebar.html" %}
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+
+              {%  include "manager_navbar.html" %}
+
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Dashboard</li>
+                </ul>
+                <!-- END BREADCRUMB -->
+
+             {%  include "manager_dash_widgets.html" %}
+
+
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+       {% include "manager_login_widget.html" %}
+
+
+
+  {% include "manager_scripts.html" %}
+    </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,100 @@
+{%load static %}
+ {% include "website_header.html" %}
+  <body class="body-wrapper">
+
+  <div class="main-wrapper">
+
+ {% include "website_nav.html" %}
+
+ {% include "website_banner.html" %}
+
+
+
+
+
+       <!-- MAIN CONTENT SECTION -->
+      <section class="mainContent clearfix">
+        <div class="container">
+
+
+
+
+            <div class="row featuredProducts margin-bottom">
+            <div class="col-xs-12">
+              <div class="page-header">
+                <h4>Featured Products</h4>
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <div class="owl-carousel featuredProductsSlider">
+
+
+
+
+
+
+                 {% for item in data.productgrid %}
+       {% if forloop.counter0|divisibleby:4 %}<div class="row">{% endif %}
+
+                <div class="slide">
+                <div class="productImage" style="margin:20px 20px 20px 20px;">
+                <img width="100px" onclick="cartadd('{{item.id}}')" height="200px" src="{% static "img/book.png" %}" alt="featured-product-img" onclick="cartadd('{{item.id}}')">
+                <!--<div class="productMasking">
+                <ul class="list-inline btn-group" role="group">
+                <li><a data-toggle="modal" href=".login-modal" class="btn btn-default"><i class="fa fa-heart"></i></a></li>
+                <li><a href="cart-page.html" class="btn btn-default"><i class="fa fa-shopping-cart"></i></a></li>
+                <li><a data-toggle="modal" href=".quick-view" class="btn btn-default"><i class="fa fa-eye"></i></a></li>
+                </ul>
+                </div>-->
+                </div>
+                <div class="productCaption"  style="margin:20px 20px 20px;">
+                <a  href="#" onclick="cartadd('{{item.id}}')">
+                <h5>{{item.name}}</h5>
+                </a>
+                <h3>&#x20a6;{{item.price}}</h3>
+                </div>
+                </div>
+                          
+
+                 {% if forloop.counter|divisibleby:4 or forloop.last %}       </div>{% endif %}
+
+ {% endfor %}
+
+
+
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+        </div>
+      </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ {% include "website_footer.html" %}
+
+  </body>
+</html>

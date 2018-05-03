@@ -1,0 +1,32 @@
+{% load static %}
+{% load carton_tags %}
+{% get_cart as cart %}
+<!-- BEGIN: CART MENU -->
+                    <div class="c-cart-menu">
+                        <div class="c-cart-menu-title">
+                            <p class="c-cart-menu-float-l c-font-sbold"><span class="c-count">{{ cart.count }}</span> item(s)</p>
+                            <p class="c-cart-menu-float-r c-theme-font c-font-sbold">&#x20a6;<span class="c-total">{{ cart.total }}</span></p>
+                        </div>
+                        <ul class="c-cart-menu-items">
+                             {% for product in cart.products %}
+                            <li id="cart_{{product.id}}">
+                                <div class="c-cart-menu-close">
+                                    <a href="#" onclick="cartremove('{{product.id}}')" class="c-theme-link">×</a>
+                                </div>
+                                <img src="{% static "img/book.png" %}" />
+                                <div class="c-cart-menu-content">
+                                    <p>1 x
+                                        <span class="c-item-price c-theme-font">&#x20a6;{{ product.price }}</span>
+                                    </p>
+                                    <a href="shop-product-details-2.html" class="c-item-name c-font-sbold">{{ product.name }}</a>
+                                </div>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                        <div class="c-cart-menu-footer">
+                            <a href="/cart" class="btn btn-md c-btn c-btn-square c-btn-grey-3 c-font-white c-font-bold c-center c-font-uppercase">View Cart</a>
+                            <a href="/checkout" class="btn btn-md c-btn c-btn-square c-theme-btn c-font-white c-font-bold c-center c-font-uppercase">Checkout</a>
+                        </div>
+                    </div>
+                    <!-- END: CART MENU -->

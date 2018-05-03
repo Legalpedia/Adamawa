@@ -1,0 +1,8 @@
+CREATE_USER_SUCCESS="created user"
+UNABLE_TO_CREATE="unable to create user"
+USER_EXISTS="user exists"
+EMAIL_EXISTS="account with this email exists"
+PHONE_EXISTS="account with this phone number exists"
+LOGIN_SUCCESS="successfully loggedin"
+LOGIN_FAIL="invalid username/password"
+INVALID_USERID="user id does not match"

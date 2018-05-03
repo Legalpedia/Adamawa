@@ -1,0 +1,173 @@
+{% load static %}
+{% load carton_tags %}
+{% get_cart as cart %}
+{% include "website_header.html" %}
+    <body class="c-layout-header-fixed c-layout-header-mobile-fixed">
+    {% include "website_nav.html" %}
+
+        <!-- BEGIN: PAGE CONTAINER -->
+        <div class="c-layout-page">
+
+
+
+<div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+                <div class="container">
+                    <div class="c-page-title c-pull-left">
+                        <h3 class="c-font-uppercase c-font-sbold">Cart Empty</h3>
+                        <h4 class="">Downloads</h4>
+                    </div>
+                    <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                        <li>
+
+                            <a href="shop-cart-empty.html">Shopping Cart{% if cart.count == 0 %}(empty){% endif %}</a>
+                        </li>
+                        <li>/</li>
+                        <li class="c-state_active">{{ data.sitename }}</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+            <!-- BEGIN: PAGE CONTENT -->
+            <!-- BEGIN: CONTENT/SHOPS/SHOP-CART-EMPTY -->
+
+
+
+            <div class="c-content-box c-size-lg">
+                <div class="container">
+                    <div class="c-shop-cart-page-1">
+                        {% if cart.count > 0 %}
+                        <div class="row c-cart-table-title">
+                            <div class="col-md-2 c-cart-image">
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Image</h3>
+                            </div>
+                            <div class="col-md-4 c-cart-desc">
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Description</h3>
+                            </div>
+
+                            <div class="col-md-1 c-cart-qty">
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Qty</h3>
+                            </div>
+                            <div class="col-md-2 c-cart-price">
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Unit Price</h3>
+                            </div>
+                            <div class="col-md-1 c-cart-total">
+                                <h3 class="c-font-uppercase c-font-bold c-font-16 c-font-grey-2">Total</h3>
+                            </div>
+                            <div class="col-md-1 c-cart-remove"></div>
+                        </div>
+                        {% endif %}
+
+
+                        {{ cart.products }}
+                        <!-- BEGIN: SHOPPING CART ITEM ROW -->
+                        {% for product in cart.products %}
+
+
+                        <div class="row c-cart-table-row">
+                            <h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item 1</h2>
+                            <div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+                                <img src="{% static "img/book.png" %}" /> </div>
+                            <div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+                                <h3>
+                                    <a href="shop-product-details-2.html" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ product.name }}</a>
+                                </h3>
+
+                            </div>
+
+                            <div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
+                                <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">QTY</p>
+                                <div class="c-input-group c-spinner">
+                                    <input type="text" class="form-control c-item-1" value="1">
+                                    <div class="c-input-group-btn-vertical">
+                                        <button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10">
+                                            <i class="fa fa-caret-up"></i>
+                                        </button>
+                                        <button class="btn btn-default" type="button" data_input="c-item-1">
+                                            <i class="fa fa-caret-down"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+                                <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Unit Price</p>
+                                <p class="c-cart-price c-font-bold">&#x20a6;{{ product.price }}</p>
+                            </div>
+                            <div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+                                <p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Total</p>
+                                <p class="c-cart-price c-font-bold">&#x20a6;{{ product.price }}</p>
+                            </div>
+                            <div class="col-md-1 col-sm-12 c-cart-remove">
+                                <a href="#" onclick="cartremove('{{product.id}}');" class="c-theme-link c-cart-remove-desktop">×</a>
+                                <a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Remove item from Cart</a>
+                            </div>
+                        </div>
+                        <!-- END: SHOPPING CART ITEM ROW -->
+                                {% endfor %}
+
+
+
+
+                        {% if cart.count > 0 %}
+                        <!-- BEGIN: SUBTOTAL ITEM ROW -->
+                        <div class="row">
+                            <div class="c-cart-subtotal-row c-margin-t-20">
+                                <div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                                    <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2">Subtotal</h3>
+                                </div>
+                                <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                                    <h3 class="c-font-bold c-font-16">&#x20a6;{{ cart.total }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: SUBTOTAL ITEM ROW -->
+
+                        <!-- BEGIN: SUBTOTAL ITEM ROW -->
+                        <div class="row">
+                            <div class="c-cart-subtotal-row">
+                                <div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                                    <h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2">Grand Total</h3>
+                                </div>
+                                <div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
+                                    <h3 class="c-font-bold c-font-16">&#x20a6;{{ cart.total }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END: SUBTOTAL ITEM ROW -->
+                        <div class="c-cart-buttons">
+                            <a href="/downloads" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">Continue Shopping</a>
+                            <a href="/checkout" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-r">Checkout</a>
+                        </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+           {% if data.cart == False %}
+            <div class="c-content-box c-size-lg">
+                <div class="container">
+                    <div class="c-shop-cart-page-1 c-center">
+                        <i class="fa fa-frown-o c-font-dark c-font-50 c-font-thin "></i>
+                        <h2 class="c-font-thin c-center">Your Shopping Cart is Empty</h2>
+                        <a href="/downloads" class="btn c-btn btn-lg c-btn-dark c-btn-square c-font-white c-font-bold c-font-uppercase">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+        </div>
+        <!-- END: PAGE CONTAINER -->
+
+
+    {% include "website_footer.html" %}
+</body>
+
+
+</html>

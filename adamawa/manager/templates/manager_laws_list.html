@@ -1,0 +1,75 @@
+
+                   <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+
+
+                                 <div class="panel-heading">
+                                    <h3 class="panel-title">List Laws</h3>
+                                    <ul class="panel-controls">
+                                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="panel-body">
+
+
+
+                             <table   id="laws"
+                                   data-toggle="table"
+                                   data-pagination="true"
+                                 data-side-pagination="server">
+                                <thead>
+                                <tr>
+                                    <th data-field="id">ID</th>
+                                    <th data-field="title">Title</th>
+
+                                    <th  data-formatter="displayEdit"> </th>
+                                </tr>
+                                </thead>
+
+                            </table>
+                                </div>
+                                     </div>
+                        </div>
+                   </div>
+
+
+                <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+
+
+                                 <div class="panel-heading">
+                                    <h3 class="panel-title">List Sections</h3>
+                                    <ul class="panel-controls">
+                                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="panel-body">
+
+                           <p> <select id="lawid">
+                                 {%  for law in data.laws %}
+                                       <option value="{{ law.id }}">{{ law.title }}</option>
+                                    {% endfor %}
+                            </select>
+                            </p>
+
+                             <table   id="sections"
+                                   data-toggle="table"
+                                   data-pagination="true"
+                                 data-side-pagination="server">
+                                <thead>
+                                <tr>
+                                   <th data-field="title">Title</th>
+                                    <th data-field="body">Body</th>
+                                    <th  data-formatter="displayEdit"> </th>
+                                </tr>
+                                </thead>
+
+                            </table>
+                                </div>
+                                     </div>
+                        </div>
+                </div>

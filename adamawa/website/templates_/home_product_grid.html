@@ -1,0 +1,44 @@
+   {% load static %}
+   <style>
+       div.top {
+        margin-top:20px;
+       }
+   </style>
+      <div class="top col-sm-10 col-sm-offset-1 c-bs-grid-small-space">
+
+
+
+ {% for item in data.productgrid %}
+       {% if forloop.counter0|divisibleby:4 %}<div class="row">{% endif %}
+
+
+                            <div class="col-md-3 col-sm-6 c-margin-b-20">
+                                <div class="c-content-product-2 c-bg-white c-border">
+                                    <div class="c-content-overlay">
+
+
+                                        <div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 250px; background-image: url({% static "img/book.png" %});"></div>
+                                    </div>
+                                    <div class="c-info">
+                                        <p class="c-title c-font-16 c-font-slim">{{item.name}}</p>
+                                        <p class="c-price c-font-14 c-font-slim">&#x20a6;{{item.price}} &nbsp;
+
+                                        </p>
+                                    </div>
+                                    <div class="btn-group btn-group-justified" role="group">
+
+                                        <div class="btn-group c-border-left c-border-top" role="group">
+                                            <a href="#" onclick="cartadd('{{item.id}}')" class="btn btn-success btn-sm c-btn-uppercase c-btn-square c-font-white c-font-white-hover c-bg-red-2-hover c-btn-product">Buy</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                 {% if forloop.counter|divisibleby:4 or forloop.last %}       </div>{% endif %}
+
+ {% endfor %}
+
+
+
+ </div>
+

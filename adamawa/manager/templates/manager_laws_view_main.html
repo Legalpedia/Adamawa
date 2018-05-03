@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>{{ data.sitename }}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+
+        <!-- CSS INCLUDE -->
+        <link rel="stylesheet" type="text/css" id="theme" href="../static/css/theme-default.css"/>
+         <link rel="stylesheet" href="../static/vendor/bootstrap-table/bootstrap-table.css">
+        <!-- EOF CSS INCLUDE -->
+    </head>
+    <body>
+        <!-- START PAGE CONTAINER -->
+        <div class="page-container">
+
+
+
+            {% include "manager_sidebar.html" %}
+
+
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+
+              {%  include "manager_navbar.html" %}
+
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Laws</li>
+                </ul>
+                <!-- END BREADCRUMB -->
+
+
+
+                 <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form action="uploadlaws" enctype="multipart/form-data" method="post" class="form-horizontal">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Upload Laws</h3>
+                                    <ul class="panel-controls">
+                                        <li><a href="#" class="panel-remove"><span class="fa fa-times"></span></a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="panel-body">
+
+
+                                <div class="form-group form-material">
+                                <div class="col-md-5">
+                                <label class="control-label" for="inputText">Upload Files</label>
+                                <input multi type="file" class="form-control" id="fileupload" name="files" placeholder=""/>
+
+                                </div>
+                                </div>
+
+                              </div>
+
+                                {%  csrf_token %}
+
+                                <div class="panel-footer">
+                                   
+                                    <button method="post" class="btn btn-primary pull-right">Submit</button>
+                                </div>
+                            </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+
+
+
+                     {% include "manager_laws_list.html" %}
+
+
+
+
+
+
+                </div>
+                <!-- END PAGE CONTENT WRAPPER -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+
+        {% include "manager_login_widget.html" %}
+
+
+
+  {% include "manager_scripts.html" %}
+  <script src="../static/js/jQuery.MultiFile.min.js"></script>
+  <script src="../static/vendor/bootstrap-table/bootstrap-table.min.js"></script>
+  <script src="../static/vendor/bootstrap-table/extensions/mobile/bootstrap-table-mobile.js"></script>
+     <script>
+
+
+  var $laws = $('#laws');
+   var $sections = $('#sections');
+ function getSectionData(id,number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('laws/section/'+id+"/", {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            $sections.bootstrapTable('load', res);
+        });
+    }
+
+ function getData(number, size) {
+	if(isNaN(number)){
+	number=1;
+	}
+        $.get('laws/list', {
+            offset: (number - 1) * size,
+            limit: size
+        }, function (res) {
+            $laws.bootstrapTable('load', res);
+        });
+    }
+
+    function displayEdit(value, row) {
+
+         return "<a class='btn btn-small btn-primary' href='#' onclick='editRow("+row.id+")'>Edit</a>  "+
+         "<a class='btn btn-small btn-danger' href='#' onclick='deleteRow("+row.id+")'>Delete</a>"
+    "</ul>"
+    }
+
+    function fetchAsync(value, row){
+        if(row.image!=""){
+        data='<img width="150px" heigh="70px" class="lazy" data-src="" id="img_'+row.id+'" src="../'+row.image+'"/>'
+        }else{
+        data=''
+        }
+	return data;
+	}
+
+
+ $('#lawid').change(function(){
+    var id=jQuery("#lawid").val();
+     $sections.on('page-change.bs.table', function (e, number, size) {
+            getSectionData(id,number, size);
+        });
+        var options = $sections.bootstrapTable('getOptions');
+        getSectionData(id,options.pageNumber, options.pageSize);
+ });
+
+
+    $(function () {
+	var number=0;
+        $laws.on('page-change.bs.table', function (e, number, size) {
+            getData(number, size);
+        });
+        var options = $laws.bootstrapTable('getOptions');
+        getData(options.pageNumber, options.pageSize);
+
+        var id=jQuery("#lawid").val();
+  $sections.on('page-change.bs.table', function (e, number, size) {
+            getSectionData(id,number, size);
+        });
+        var options = $sections.bootstrapTable('getOptions');
+        getSectionData(id,options.pageNumber, options.pageSize);
+
+
+
+
+
+
+
+        $('#fileupload').MultiFile({
+    max: 20,
+    max_size: 100,
+    accept: 'docx',
+    onFileRemove: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileRemove - ' + value + '</li>')
+    },
+    afterFileRemove: function(element, value, master_element) {
+      $('#F9-Log').append('<li>afterFileRemove - ' + value + '</li>')
+    },
+    onFileAppend: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileAppend - ' + value + '</li>')
+    },
+    afterFileAppend: function(element, value, master_element) {
+      $('#F9-Log').append('<li>afterFileAppend - ' + value + '</li>')
+    },
+    onFileSelect: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileSelect - ' + value + '</li>')
+    },
+    afterFileSelect: function(element, value, master_element) {
+      $('#F9-Log').append('<li>afterFileSelect - ' + value + '</li>')
+    },
+    onFileInvalid: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileInvalid - ' + value + '</li>')
+    },
+    onFileDuplicate: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileDuplicate - ' + value + '</li>')
+    },
+    onFileTooMany: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileTooMany - ' + value + '</li>')
+    },
+    onFileTooBig: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileTooBig - ' + value + '</li>')
+    },
+    onFileTooMuch: function(element, value, master_element) {
+      $('#F9-Log').append('<li>onFileTooMuch - ' + value + '</li>')
+    }
+  });
+    });
+
+    </script>
+    </body>
+</html>
+
+
+
+
+
+

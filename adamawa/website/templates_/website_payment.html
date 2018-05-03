@@ -1,0 +1,122 @@
+{% load static %}
+{% include "website_header.html" %}
+    <body class="c-layout-header-fixed c-layout-header-mobile-fixed">
+    {% include "website_nav.html" %}
+
+        <!-- BEGIN: PAGE CONTAINER -->
+        <div class="c-layout-page">
+<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+            <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
+                <div class="container">
+                    <div class="c-page-title c-pull-left">
+                        <h3 class="c-font-uppercase c-font-sbold">Payment</h3>
+
+                    </div>
+                    <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+                        <li>
+                            <a href="shop-checkout-complete.html">Payment</a>
+                        </li>
+                        <li>/</li>
+                        <li class="c-state_active">{{data.sitename}}</li>
+                    </ul>
+                </div>
+            </div>
+<!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+
+
+ <div class="c-content-box c-size-lg c-overflow-hide c-bg-white">
+                <div class="container">
+
+
+<h4> Your Order <b>(Transaction Reference:{{ data.transid }})</b></h4>
+                 <table class="table table-striped">
+                                                        <tr>
+                                                            <td colspan="2">
+
+                                                                <b>
+                                                                    {{ data.description }}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <ul>
+                                                                    <li> {{ data.description }}</li>
+
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <b>&#8358; {{ data.amount }}</b>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+
+ <div class="col-md-8 col-md-offset-2">
+            <div id="kpay-pay-component"> {% if data.payment_gateway == "paystack" %} <button class="btn btn-success" id="paynow">Pay Now</button> {% endif %}</div>
+            </div>
+
+</div>
+
+ </div>
+<script src="{% static "vendor/jquery/jquery.js" %}"></script>
+                 <form   autocomplete="off">
+        {% if data.payment_gateway == "kongapay" %}
+
+            {% if data.payment_type == "production" %}
+
+        <script src="https://www.kongapay.com/plugins/web-plugin/js/kpay.min.js"></script>
+        {% else %}
+        <script src="https://sandbox.kongapay.com/plugins/web-plugin/js/kpay-sand.min.js"></script>
+        {% endif %}
+
+ <script>
+    new KongaPay({
+        merchantId: "{{ data.merchantid }}",
+        merchantName: "{{ data.merchantname }}",
+        phone:"{{ data.phone }}", //optional
+        callBack: "{{ data.callbackurl }}",
+        amount: "{{ data.amount }}",
+        transactionReference: "{{ data.transid }}" ,
+        buttonSize: 140,
+        description : "{{ data.description }}", //optional
+    });
+</script>
+              {% endif %}
+
+            {% if data.payment_gateway == "paystack" %}
+            <script src="https://js.paystack.co/v1/inline.js"></script>
+            <!-- <script src="../static/js/paystack.js"></script>-->
+                <script>
+                var transactionid="{{ data.transactionid }}"
+                paystackHandler = PaystackPop.setup({
+          key: "{{ data.merchantid }}",
+          email: "{{ data.email }}",
+          amount: parseFloat({{ data.amount }}) * 100,
+          onClose: function () {
+           // payment_btn.attr('disabled', false).html('Make Payment');
+          },
+          callback: function (response) {
+              transid=response.trxref;
+              location.href="checkoutcomplete?reference="+transid+"&transactionid="+transactionid;
+          }
+        })
+                $("#paynow").click(function(){
+                  paystackHandler.openIframe();
+                });
+
+                </script>
+              {% endif %}
+
+
+
+
+
+
+        </div>
+        <!-- END: PAGE CONTAINER -->
+
+
+    {% include "website_footer.html" %}
+</body>
+
+
+</html>

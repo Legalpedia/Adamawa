@@ -1,0 +1,145 @@
+ {%load static %}
+ {% load carton_tags %}
+{% get_cart as cart %}
+ {% include "website_header.html" %}
+ <style>
+  .c-download  a:link {
+    color: red;
+}
+
+.c-download a:visited {
+    color: red;
+}
+
+  .c-copyright  a:link {
+    color: red;
+}
+/* visited link */
+.c-copyright a:visited {
+    color: green;
+}
+
+/* mouse over link */
+.c-copyright a:hover {
+    color: hotpink;
+}
+
+/* selected link */
+.c-copyright a:active {
+    color: blue;
+}
+</style>
+
+  <body class="body-wrapper">
+
+  <div class="main-wrapper">
+
+ {% include "website_nav.html" %}
+
+      <!-- MAIN CONTENT SECTION -->
+      <section class="mainContent clearfix setp5">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="thanksContent">
+
+
+                  <div class="row">
+
+
+                       <div class="container">
+                    <div class="c-shop-order-complete-1 c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">
+                        <div class="c-content-title-1">
+                            <h3 class="c-center c-font-uppercase c-font-bold">Checkout Completed</h3>
+                            <div class="c-line-center c-theme-bg"></div>
+                        </div>
+                        <div class="c-theme-bg">
+                            <p class="c-message c-center c-font-white c-font-20 c-font-sbold">
+                                <i class="fa fa-check"></i>{{ data.message }}</p>
+                        </div>
+                        <!-- BEGIN: ORDER SUMMARY -->
+                        <div class="row c-order-summary c-center">
+                            <ul class="c-list-inline list-inline">
+                                <li>
+                                    <h3>Order Number</h3>
+                                    <p>#{{data.reference}}</p>
+                                </li>
+                                <li>
+                                    <h3>Date Purchased</h3>
+                                    <p>{{data.transdate}}</p>
+                                </li>
+                                <li>
+                                    <h3>Total Payable</h3>
+                                    <p>&#x20a6;{{ data.amount}}</p>
+                                </li>
+                             </ul>
+                        </div>
+                        <!-- END: ORDER SUMMARY -->
+
+
+                        <!-- BEGIN: ORDER DETAILS -->
+                        <div class="c-order-details">
+                            <div class="c-border-bottom hidden-sm hidden-xs">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h3 class="c-font-uppercase c-font-16 c-font-grey-2 c-font-bold">Product</h3>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <h3 class="c-font-uppercase c-font-16 c-font-grey-2 c-font-bold">Download Link</h3>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- BEGIN: PRODUCT ITEM ROW -->
+                            {% for item in data.purchases %}
+
+                            <div class="c-border-bottom c-row-item">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-12 c-image">
+                                        <div class="c-content-overlay">
+                                           <div style="margin-bottom:5px;" class="c-bg-img-top-center c-overlay-object" data-height="height">
+                                                <img width="100px" height="100px" class="img-responsive" src="{% static "img/book.png" %}">
+                                           </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-8">
+                                        <ul class="c-list list-unstyled">
+                                            <li class="c-margin-b-25">
+                                                <a href="#" style="color:#000;font-size:16px;">{{ item.name }}</a>
+                                            </li>
+
+                                            <li class="c-download"><a target="_blank" href="{{item.contenturl}}">Download Here</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- END: PRODUCT ITEM ROW -->
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <!-- END: ORDER DETAILS -->
+
+                    </div>
+                </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+  </body>
+</html>
